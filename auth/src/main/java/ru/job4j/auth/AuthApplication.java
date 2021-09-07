@@ -7,8 +7,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
+import ru.job4j.auth.domain.Employee;
 import ru.job4j.auth.domain.Person;
+import ru.job4j.auth.repository.EmployeeRepository;
 import ru.job4j.auth.repository.PersonRepository;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class AuthApplication {
@@ -19,15 +24,29 @@ public class AuthApplication {
         SpringApplication.run(AuthApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner setup(PersonRepository personRepository) {
-        return (args) -> {
-            personRepository.save(new Person(1,"pavlovi", "pass"));
-            personRepository.save(new Person(2,"arsentevp", "pass"));
-            personRepository.save(new Person(3,"ivanovi", "pass"));
-            logger.info("The sample data has been generated");
-        };
-    }
+//    @Bean
+//    public CommandLineRunner setup(EmployeeRepository employeeRepository, PersonRepository personRepository) {
+//        return (args) -> {
+//
+//            Employee employee = Employee.of("ilya", "pavlov", "inn123456");
+//
+//            Person person1 = new Person("pavlovia-1", "123");
+//            Person person2 = new Person("pavlovia-2", "123");
+//            person1.setEmployee(employee);
+//            person2.setEmployee(employee);
+//
+//
+//            employeeRepository.save(employee);
+//
+//
+//            List<Employee> rsl = new ArrayList<>();
+//            employeeRepository.findAll().forEach(rsl::add);
+//
+//            List<Person> persons = rsl.get(0).getPersons();
+//
+//            logger.info("The sample data has been generated");
+//        };
+//    }
 
     @Bean
     public RestTemplate getTemplate() {

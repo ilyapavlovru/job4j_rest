@@ -1,9 +1,8 @@
 package ru.job4j.auth.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -11,8 +10,19 @@ public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     private String login;
+
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
+    public Person(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public Person(int id, String login, String password) {
         this.id = id;
@@ -45,6 +55,15 @@ public class Person {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @JsonIgnore
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 
     @Override
