@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.auth.domain.Person;
+import ru.job4j.auth.domain.Response;
 import ru.job4j.auth.repository.PersonRepository;
 
 import java.util.List;
@@ -40,16 +41,17 @@ public class PersonController {
     }
 
     @PutMapping("/")
-    public ResponseEntity<Void> update(@RequestBody Person person) {
-        this.persons.save(person);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Person> update(@RequestBody Person person) {
+        return new ResponseEntity<Person>(this.persons.save(person), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable int id) {
+    public ResponseEntity<Response> delete(@PathVariable int id) {
         Person person = new Person();
         person.setId(id);
         this.persons.delete(person);
-        return ResponseEntity.ok().build();
+        return new ResponseEntity<Response>(
+                new Response(HttpStatus.OK.value(), "Person has been deleted"),
+                HttpStatus.OK);
     }
 }
