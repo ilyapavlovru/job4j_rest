@@ -7,8 +7,6 @@ import ru.job4j.auth.domain.Person;
 import ru.job4j.auth.repository.PersonRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @RestController
 @RequestMapping("/person")
