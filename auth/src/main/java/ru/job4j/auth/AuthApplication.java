@@ -6,6 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
 import ru.job4j.auth.domain.Person;
 import ru.job4j.auth.repository.PersonRepository;
 
@@ -28,4 +29,8 @@ public class AuthApplication {
         };
     }
 
+    @Bean
+    public RestTemplate getTemplate() {
+        return new RestTemplate();
+    }
 }
