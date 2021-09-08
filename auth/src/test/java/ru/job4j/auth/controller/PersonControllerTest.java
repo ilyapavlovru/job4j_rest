@@ -20,6 +20,10 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import ru.job4j.auth.AuthApplication;
+import ru.job4j.auth.domain.Employee;
+import ru.job4j.auth.domain.Person;
+import ru.job4j.auth.service.EmployeeService;
+import ru.job4j.auth.service.PersonService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AuthApplication.class)
@@ -32,9 +36,19 @@ public class PersonControllerTest {
     @Autowired
     private WebApplicationContext wac;
 
+    @Autowired
+    private PersonService personService;
+
+    @Autowired
+    private EmployeeService employeeService;
+
     @Before
     public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
+        Employee employee = employeeService.saveEmployee(Employee.of("ilya", "pavlov", "inn123456"));
+        personService.savePerson(new Person(1,"pavlovi", "pass", employee));
+        personService.savePerson(new Person(2,"arsentevp", "pass", employee));
+        personService.savePerson(new Person(3,"ivanovi", "pass", employee));
     }
 
     @Test

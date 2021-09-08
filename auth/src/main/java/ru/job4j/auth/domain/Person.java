@@ -19,9 +19,7 @@ public class Person {
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
-    public Person(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public Person() {
     }
 
     public Person(int id, String login, String password) {
@@ -30,7 +28,9 @@ public class Person {
         this.password = password;
     }
 
-    public Person() {
+    public Person(int id, String login, String password, Employee employee) {
+        this(id, login, password);
+        this.employee = employee;
     }
 
     public int getId() {
